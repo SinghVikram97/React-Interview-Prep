@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
+import Result from "./Result";
 const SearchParams = () => {
   // hooks like useState never go inside if-statements and for-loops
   // Because hooks keep track of state elements by the order they are called in
@@ -7,8 +8,19 @@ const SearchParams = () => {
   const [animal, setAnimal] = useState("dog");
   const [breed, setBreed] = useState("");
   const [BREEDS, setBREEDS] = useState([]);
+  const [pets, setPets] = useState([]);
 
   // So everytime they should be called in same order or it messes up things
+
+  async function requestPets() {
+    // You can use pet.animals.then((data)=> // do something) instead
+    const { animals } = await pet.animals({
+      location,
+      breed,
+      type: animal
+    });
+    setPets(animals || []);
+  }
 
   // Use effect replaces lifecycle hooks like componentDidMount(), componentWillUnmount()
   useEffect(() => {
@@ -28,7 +40,12 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -68,6 +85,7 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
+      <Result pets={pets} />
     </div>
   );
 };
