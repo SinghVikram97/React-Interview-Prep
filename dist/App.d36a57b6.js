@@ -36286,7 +36286,7 @@ const SearchParams = () => {
 
 var _default = SearchParams;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./Result":"Result.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./Result":"Result.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36294,17 +36294,153 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+class Carousel extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      photo: [],
+      active: 0
+    }; // If we use normal function
+
+    this.handleIndexClick = this.handleIndexClick.bind(this);
+  }
+
+  static getDerivedStateFromProps({
+    media
+  }) {
+    let photos = ["http://placecorgi.com/600/600"];
+
+    if (media.length) {
+      photos = media.map(({
+        large
+      }) => large);
+    }
+
+    return {
+      photos
+    };
+  }
+
+  handleIndexClick(e) {
+    //this here is window or undefined
+    // its not right
+    this.setState({
+      active: +e.target.dataset.index
+    });
+  } // This of arrow function is this where it is written
+  // This of normal function is where it is invoked
+  // handleIndexClick = e => {
+  //   this.setState({ active: +e.target.dataset.index });
+  // };
+
+
+  render() {
+    const {
+      photos,
+      active
+    } = this.state;
+    console.log(photos);
+    return _react.default.createElement("div", {
+      className: "carousel"
+    }, _react.default.createElement("img", {
+      src: photos[active],
+      alt: "animal"
+    }), _react.default.createElement("div", {
+      className: "carousel-smaller"
+    }, photos.map((photo, index) => // eslint-disable-next-line
+    _react.default.createElement("img", {
+      key: photo,
+      onClick: this.handleIndexClick,
+      "data-index": index,
+      src: photo,
+      className: index === active ? "active" : "",
+      alt: "animal thumbnail"
+    }))));
+  }
+
+}
+
+exports.default = Carousel;
+},{"react":"../node_modules/react/index.js"}],"Details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _pet = _interopRequireDefault(require("@frontendmasters/pet"));
+
+var _Carousel = _interopRequireDefault(require("./Carousel"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Details = () => {
-  return _react.default.createElement("h1", null, "Hi lol");
-};
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-var _default = Details;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// We use arrow functions in class based components because
+// Arrow functions don't create context
+// if we use normal function(){} they create a new context
+// so this then refers to something else
+// Can't use hooks with classes
+class Details extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    _pet.default.animal(this.props.id).then(({
+      animal
+    }) => {
+      this.setState({
+        name: animal.name,
+        animal: animal.type,
+        location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
+        description: animal.description,
+        media: animal.photos,
+        breed: animal.breeds.primary,
+        loading: false
+      });
+    });
+  }
+
+  render() {
+    if (this.state.loading) {
+      return _react.default.createElement("h1", null, "loading \u2026 ");
+    }
+
+    const {
+      animal,
+      breed,
+      location,
+      description,
+      media,
+      name,
+      showModal
+    } = this.state;
+    return _react.default.createElement("div", {
+      className: "details"
+    }, _react.default.createElement(_Carousel.default, {
+      media: media
+    }), _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, `${animal} — ${breed} — ${location}`), _react.default.createElement("button", null, " Adopt ", name), _react.default.createElement("p", null, description)));
+  }
+
+}
+
+exports.default = Details;
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./Carousel":"Carousel.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -36365,7 +36501,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39559" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42621" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
