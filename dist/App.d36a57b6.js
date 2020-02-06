@@ -31746,7 +31746,7 @@ var Pet = function Pet(_ref) {
   var name = _ref.name,
       animal = _ref.animal,
       breed = _ref.breed;
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, name), _react.default.createElement("h2", {}, animal), _react.default.createElement("h2", {}, breed)]);
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal), _react.default.createElement("h2", null, breed));
 };
 
 var _default = Pet;
@@ -31767,7 +31767,7 @@ var App = function App() {
   // 1st parameter is tag
   // 2nd parameter is attributes like id
   // 3rd one is children
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, "Adopt Me!"), _react.default.createElement(_Pet.default, {
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement(_Pet.default, {
     name: "Luna",
     animal: "Dog",
     breed: "Maltese"
@@ -31779,11 +31779,11 @@ var App = function App() {
     name: "Doink",
     animal: "Cat",
     breed: "Mixed"
-  })]);
+  }));
 }; // When you say render it blows away anything inside of it so not rendered is gone
 
 
-(0, _reactDom.render)(_react.default.createElement(App), document.getElementById("root"));
+(0, _reactDom.render)(_react.default.createElement(App, null), document.getElementById("root"));
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Pet":"Pet.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -31812,7 +31812,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35599" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33763" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
