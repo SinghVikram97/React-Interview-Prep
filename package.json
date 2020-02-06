@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "parcel src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,11 @@
   "homepage": "https://github.com/SinghVikram97/React-Interview-Prep#readme",
   "devDependencies": {
     "eslint-plugin-prettier": "^3.1.2",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }

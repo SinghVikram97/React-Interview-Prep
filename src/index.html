@@ -1,36 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Adopt-Me</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <div id="root">not rendered</div>
-  <!-- Provides basic methods for react like component, context -->
-  <!-- Write React in console and see React object gets loaded -->
-  <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
-  <!-- 2nd package because react-native and react use same package as above -->
-  <!-- React dom uses react to render it to browser -->
-  <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.development.js"></script>
-  <script>
-    // We create a component called App
-    const App=()=>{
-      // 1st parameter is tag
-      // 2nd parameter is attributes like id
-      // 3rd one is children
-      return React.createElement(
-        "div",
-        {},
-        React.createElement("h1",{},"Adopt Me!")
-      )
-    }
-
-    // When you say render it blows away anything inside of it so not rendered is gone
-    ReactDOM.render(React.createElement(App),document.getElementById("root"))
-
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Adopt-Me</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="root">not rendered</div>
+    <!-- Provides basic methods for react like component, context -->
+    <!-- Write React in console and see React object gets loaded -->
+    <script src="App.js"></script>
+  </body>
 </html>
