@@ -1,0 +1,24 @@
+{
+  "name": "react-interview-prep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SinghVikram97/React-Interview-Prep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SinghVikram97/React-Interview-Prep/issues"
+  },
+  "homepage": "https://github.com/SinghVikram97/React-Interview-Prep#readme",
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
