@@ -33435,7 +33435,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _pet = require("@frontendmasters/pet");
+var _pet = _interopRequireWildcard(require("@frontendmasters/pet"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -33471,7 +33471,25 @@ var SearchParams = function SearchParams() {
       _useState8 = _slicedToArray(_useState7, 2),
       BREEDS = _useState8[0],
       setBREEDS = _useState8[1]; // So everytime they should be called in same order or it messes up things
+  // Use effect replaces lifecycle hooks like componentDidMount(), componentWillUnmount()
 
+
+  (0, _react.useEffect)(function () {
+    setBREEDS([]);
+    setBreed("");
+
+    _pet.default.breeds(animal).then(function (_ref) {
+      var breeds = _ref.breeds;
+      var breedStrings = breeds.map(function (_ref2) {
+        var name = _ref2.name;
+        return name;
+      });
+      setBREEDS(breedStrings);
+    });
+  }, [animal]); // Declaring dependencies for useEffect so it runs only when animal changes
+  // Otherwise it would run on every re render which would also happen on change of location
+  // If you want to run only once when it renders 1st time pass empty array []
+  // If you want to run everytime something updates don't pass anything
 
   return _react.default.createElement("div", {
     className: "search-params"
@@ -33566,7 +33584,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44739" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42667" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
