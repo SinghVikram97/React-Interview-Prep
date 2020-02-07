@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import Result from "./Result";
+import ThemeContext from "./ThemeContext";
 const SearchParams = () => {
   // hooks like useState never go inside if-statements and for-loops
   // Because hooks keep track of state elements by the order they are called in
@@ -9,6 +10,7 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [BREEDS, setBREEDS] = useState([]);
   const [pets, setPets] = useState([]);
+  const [theme, setTheme] = useContext(ThemeContext);
 
   // So everytime they should be called in same order or it messes up things
 
@@ -83,7 +85,15 @@ const SearchParams = () => {
             })}
           </select>
         </label>
-        <button>Submit</button>
+        <label htmlFor="theme">
+          Theme
+          <select value={theme} onChange={e => setTheme(e.target.value)}>
+            <option value="peru">Peru</option>
+            <option value="darkblue">Dark Blue</option>
+            <option value="mediumorchid">Medium Orchid</option>
+          </select>
+        </label>
+        <button style={{ backgroundColor: theme }}>Submit</button>
       </form>
       <Result pets={pets} />
     </div>

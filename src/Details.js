@@ -7,6 +7,7 @@ import React, { Component } from "react";
 // Can't use hooks with classes
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
+import ThemeContext from "./ThemeContext";
 
 export default class Details extends Component {
   constructor(props) {
@@ -51,7 +52,17 @@ export default class Details extends Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} — ${breed} — ${location}`}</h2>
-          <button> Adopt {name}</button>
+          <ThemeContext.Consumer>
+            {([theme]) => {
+              return (
+                <button style={{ backgroundColor: theme }}>
+                  {" "}
+                  Adopt {name}
+                </button>
+              );
+            }}
+          </ThemeContext.Consumer>
+
           <p>{description}</p>
         </div>
       </div>
